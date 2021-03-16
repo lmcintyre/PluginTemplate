@@ -1,0 +1,6 @@
+name: {{cookiecutter.public_name}}
+internal_name: {{cookiecutter.project_name}}
+author: {{cookiecutter.author}}
+description: |-
+  {{cookiecutter.description}}
+repo_url: {{cookiecutter.project_repo}}

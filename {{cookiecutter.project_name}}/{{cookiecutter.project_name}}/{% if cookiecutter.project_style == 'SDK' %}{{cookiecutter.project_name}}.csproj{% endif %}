@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyTitle>{{cookiecutter.project_name}}</AssemblyTitle>
+    <Product>{{cookiecutter.project_name}}</Product>
+    <Description>{{cookiecutter.description}}</Description>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
+    <Version>1.0.0.0</Version>
+    <FileVersion>1.0.0.0</FileVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Dalamud">
+      <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\Dalamud.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ImGui.NET">
+      <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\ImGui.NET.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ImGuiScene">
+      <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\ImGuiScene.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="System.Numerics">
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+  {% if cookiecutter.use_packager == "yes" -%}
+  <ItemGroup>
+    <Content Include="{{cookiecutter.project_name}}.yaml" />
+  </ItemGroup>
+  <Import Project="..\packages\DalamudPackager.1.0.1\build\DalamudPackager.props" Condition="Exists('..\packages\DalamudPackager.1.0.1\build\DalamudPackager.props')" />
+  <ItemGroup>
+    <PackageReference Include="DalamudPackager" Version="1.2.0" />
+  </ItemGroup>
+  {% endif -%}
+</Project>

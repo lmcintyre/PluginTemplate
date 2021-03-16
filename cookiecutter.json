@@ -1,0 +1,17 @@
+{
+    "project_name": "SamplePlugin",
+    "public_name": "Sample Plugin",
+    "author": "yourname",
+    "description": "A simple description that shows up in /xlplugins.  List any major slash-command(s).",
+    "project_repo": "https://github.com/youruser/yourrepo",
+    "main_command": "pmycommand",
+    "main_command_help": "A useful message to display in /xlhelp.",
+    "include_comments": ["yes", "no"],
+    "include_readme": ["yes", "no"],
+    "include_UI_project": ["yes", "no"],
+    "include_goat": ["yes", "no"],
+    "project_style": ["nonSDK", "SDK"],
+    "use_packager": ["no", "yes"],
+    "packager_targets": ["no", "yes"],
+    "include_actions": ["no", "yes"]
+}
