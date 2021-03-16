@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
+    <Company>{{cookiecutter.author}}</Company>
     <AssemblyTitle>{{cookiecutter.project_name}}</AssemblyTitle>
     <Product>{{cookiecutter.project_name}}</Product>
     <Description>{{cookiecutter.description}}</Description>

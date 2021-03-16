@@ -15,3 +15,7 @@ if project_style == "nonSDK" and use_packager == "yes":
 if use_packager == "no" and packager_targets == "yes":
     print("Cannot create a packager targets without enabling packager.")
     sys.exit(1)
+
+if use_packager == "no" and include_actions == "yes":
+    print("The included GitHub actions cannot be used without DalamudPackager.")
+    sys.exit(1)
