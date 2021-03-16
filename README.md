@@ -3,7 +3,8 @@ This is a template for generating a Dalamud Plugin using [cookiecutter](https://
 
 ## Usage
 
-The simplest usage is to install Python for your platform. **NOTE:** *If you are on Windows, you may have to add your Python* `Scripts` *folder to your* `PATH` *before* `cookiecutter` *will be available from the command line.*
+The simplest usage is to install Python for your platform, then install cookiecutter via
+```pip install cookiecutter``` or ```pip3 install cookiecutter```. **NOTE:** *If you are on Windows, you may have to add your Python* `Scripts` *folder to your* `PATH` *before* `cookiecutter` *will be available from the command line.*
 
 Once installed, you can copy the link to any release zip on the right side of this GitHub repository, and use cookiecutter like so:
 
