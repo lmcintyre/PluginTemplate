@@ -1,5 +1,18 @@
 # PluginTemplate
-This is a template for generating a Dalamud Plugin using [cookiecutter](https://github.com/cookiecutter/cookiecutter). The default values are meant to keep the generated project in line with the [sample plugin](https://github.com/goatcorp/SamplePlugin), but there are many options for the generated project. The below options are all options that will be prompted on project generation. Please note that all generated values can be changed after generating... obviously.
+This is a template for generating a Dalamud Plugin using [cookiecutter](https://github.com/cookiecutter/cookiecutter). The default values are meant to keep the generated project in line with the [sample plugin](https://github.com/goatcorp/SamplePlugin), but there are many options for the generated project. "Template options" below lists all options that will be prompted on project generation. Please note that all generated values can be changed after generating... obviously.
+
+## Usage
+
+The simplest usage is to install Python for your platform. **NOTE:** *If you are on Windows, you may have to add your Python* `Scripts` *folder to your* `PATH` *before* `cookiecutter` *will be available from the command line.*
+
+Once installed, you can copy the link to any release zip on the right side of this GitHub repository, and use cookiecutter like so:
+
+```cookiecutter https://github.com/lmcintyre/PluginTemplate/releases/download/0.0.9/PluginTemplate.zip```
+
+Cookiecutter will download the template zip, extract it, and perform generation all in one go. Future generations will ask you if you want to redownload or use the cached template zip.
+
+There are many more options for cookiecutter generation, as it is not required to use the zip file or be prompted for options each time. You can clone this repository or download it as a zip file and modify the template yourself for your own personal usage. For more information on generating templates, check out the [cookiecutter documentation](https://cookiecutter.readthedocs.io/en/1.7.2/).
+
 
 ## Template options
 ### ```project_name```
