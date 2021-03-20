@@ -14,7 +14,7 @@ namespace {{cookiecutter.project_name}}
 
         private DalamudPluginInterface pi;
         private Configuration configuration;
-        private PluginUI ui;
+        private {{cookiecutter.project_name}}UI ui;
 
         public void Initialize(DalamudPluginInterface pluginInterface)
         {
@@ -29,9 +29,9 @@ namespace {{cookiecutter.project_name}}
             {% if cookiecutter.include_goat == "yes" -%}
             var imagePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"goat.png");
             var goatImage = this.pi.UiBuilder.LoadImage(imagePath);
-            this.ui = new PluginUI(this.configuration, goatImage);
+            this.ui = new {{cookiecutter.project_name}}UI(this.configuration, goatImage);
             {%- else -%}
-            this.ui = new PluginUI(this.configuration);
+            this.ui = new {{cookiecutter.project_name}}UI(this.configuration);
             {%- endif -%}
 
             this.pi.CommandManager.AddHandler(commandName, new CommandInfo(OnCommand)

@@ -7,7 +7,7 @@ namespace {{cookiecutter.project_name}}
     {% if cookiecutter.include_comments == "yes" %}// It is good to have this be disposable in general, in case you ever need it
     // to do any cleanup
     {% endif -%}
-    class PluginUI : IDisposable
+    class {{cookiecutter.project_name}}UI : IDisposable
     {
         private Configuration configuration;
         {% if cookiecutter.include_goat == "yes" -%}
