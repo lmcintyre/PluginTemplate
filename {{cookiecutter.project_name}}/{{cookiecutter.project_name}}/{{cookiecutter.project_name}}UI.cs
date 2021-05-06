@@ -33,9 +33,9 @@ namespace {{cookiecutter.project_name}}
         // passing in the image here just for simplicity
         {%- endif %}
         {% if cookiecutter.include_goat == "yes" -%}
-        public PluginUI(Configuration configuration, ImGuiScene.TextureWrap goatImage)
+        public {{cookiecutter.project_name}}UI(Configuration configuration, ImGuiScene.TextureWrap goatImage)
         {%- else -%}
-        public PluginUI(Configuration configuration)
+        public {{cookiecutter.project_name}}UI(Configuration configuration)
         {%- endif %}
         {
             this.configuration = configuration;{% if cookiecutter.include_goat == "yes" %}

@@ -50,9 +50,8 @@
   <ItemGroup>
     <Content Include="{{cookiecutter.project_name}}.yaml" />
   </ItemGroup>
-  <Import Project="..\packages\DalamudPackager.1.0.1\build\DalamudPackager.props" Condition="Exists('..\packages\DalamudPackager.1.0.1\build\DalamudPackager.props')" />
   <ItemGroup>
-    <PackageReference Include="DalamudPackager" Version="1.2.0" />
+    <PackageReference Include="DalamudPackager" Version="1.2.1" />
   </ItemGroup>
   {% endif -%}
 </Project>
