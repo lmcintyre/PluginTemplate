@@ -6,5 +6,5 @@
   "AssemblyVersion": "1.0.0.0",
   "RepoUrl": "{{cookiecutter.project_repo}}",
   "ApplicableVersion": "any",
-  "DalamudApiLevel": 2
+  "DalamudApiLevel": 4
 }

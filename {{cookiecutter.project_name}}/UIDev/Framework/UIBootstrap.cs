@@ -15,7 +15,7 @@ namespace UIDev
             // you can edit this if you want more control over things
             // mainly if you want a regular window instead of transparent overlay
             // Typically you don't want to change any colors here if you keep the fullscreen overlay
-            {%- endif -%}
+            {%- endif %}
             using (var scene = new SimpleImGuiScene(RendererFactory.RendererBackend.DirectX11, new WindowCreateInfo
             {
                 Title = "UI Test",
@@ -25,12 +25,12 @@ namespace UIDev
             {
                 {% if cookiecutter.include_comments == "yes" -%}
                 // the background color of your window - typically don't change this for fullscreen overlays
-                {%- endif -%}
+                {%- endif %}
                 scene.Renderer.ClearColor = new Vector4(0, 0, 0, 0);
 
                 {% if cookiecutter.include_comments == "yes" -%}
                 // this just makes the application quit if you hit escape
-                {%- endif -%}
+                {%- endif %}
                 scene.Window.OnSDLEvent += (ref SDL_Event sdlEvent) =>
                 {
                     if (sdlEvent.type == SDL_EventType.SDL_KEYDOWN && sdlEvent.key.keysym.scancode == SDL_Scancode.SDL_SCANCODE_ESCAPE)
@@ -41,7 +41,7 @@ namespace UIDev
 
                 {% if cookiecutter.include_comments == "yes" -%}
                 // all of this is taken straight from dalamud
-                {%- endif -%}
+                {%- endif %}
                 ImFontConfigPtr fontConfig = ImGuiNative.ImFontConfig_ImFontConfig();
                 fontConfig.MergeMode = true;
                 fontConfig.PixelSnapH = true;
@@ -58,14 +58,12 @@ namespace UIDev
                     0
                 }, GCHandleType.Pinned);
 
-
                 ImGui.GetIO().Fonts.AddFontFromFileTTF(fontPathGame, 17.0f, fontConfig, rangeHandle.AddrOfPinnedObject());
 
                 ImGui.GetIO().Fonts.Build();
 
                 fontConfig.Destroy();
                 rangeHandle.Free();
-
 
                 ImGui.GetStyle().GrabRounding = 3f;
                 ImGui.GetStyle().FrameRounding = 4f;
@@ -94,9 +92,9 @@ namespace UIDev
                 ImGui.GetStyle().Colors[(int)ImGuiCol.Tab] = new Vector4(0.23f, 0.23f, 0.23f, 0.86f);
                 ImGui.GetStyle().Colors[(int)ImGuiCol.TabHovered] = new Vector4(0.71f, 0.71f, 0.71f, 0.80f);
                 ImGui.GetStyle().Colors[(int)ImGuiCol.TabActive] = new Vector4(0.36f, 0.36f, 0.36f, 1.00f);
-                {% if cookiecutter.include_comments == "yes" -%}
+                {%- if cookiecutter.include_comments == "yes" %}
                 // end dalamud copy
-                {%- endif -%}
+                {%- endif %}
 
                 pluginUI.Initialize(scene);
 

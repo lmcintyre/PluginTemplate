@@ -4,13 +4,14 @@ using System.Numerics;
 
 namespace {{cookiecutter.project_name}}
 {
-    {% if cookiecutter.include_comments == "yes" %}// It is good to have this be disposable in general, in case you ever need it
-    // to do any cleanup
+    {% if cookiecutter.include_comments == "yes" %}
+    // It is good to have this be disposable in general, in case you ever need it to do any cleanup
     {% endif -%}
     class {{cookiecutter.project_name}}UI : IDisposable
     {
         private Configuration configuration;
-        {% if cookiecutter.include_goat == "yes" -%}
+
+        {%- if cookiecutter.include_goat == "yes" %}
         private ImGuiScene.TextureWrap goatImage;
         {%- endif %}
         {% if cookiecutter.include_comments == "yes" %}
@@ -38,7 +39,8 @@ namespace {{cookiecutter.project_name}}
         public {{cookiecutter.project_name}}UI(Configuration configuration)
         {%- endif %}
         {
-            this.configuration = configuration;{% if cookiecutter.include_goat == "yes" %}
+            this.configuration = configuration;
+            {%- if cookiecutter.include_goat == "yes" %}
             this.goatImage = goatImage;
             {%- endif %}
         }
@@ -81,14 +83,14 @@ namespace {{cookiecutter.project_name}}
                 {
                     SettingsVisible = true;
                 }
-
                 {%- if cookiecutter.include_goat == "yes" %}
 
                 ImGui.Spacing();
                 ImGui.Text("Have a goat:");
                 ImGui.Indent(55);
                 ImGui.Image(this.goatImage.ImGuiHandle, new Vector2(this.goatImage.Width, this.goatImage.Height));
-                ImGui.Unindent(55);{% endif %}
+                ImGui.Unindent(55);
+                {%- endif %}
             }
             ImGui.End();
         }

@@ -8,6 +8,7 @@
                 ManifestType="yaml"
                 MakeZip="true"
                 Include="{{cookiecutter.project_name}}.dll;
+                        {{cookiecutter.project_name}}.json;
                         {{cookiecutter.project_name}}.pdb"/>
     </Target>    
 </Project>

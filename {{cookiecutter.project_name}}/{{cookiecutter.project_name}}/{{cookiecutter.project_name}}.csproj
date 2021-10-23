@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <Platforms>x64</Platforms>
     <Company>{{cookiecutter.author}}</Company>
     <AssemblyTitle>{{cookiecutter.project_name}}</AssemblyTitle>
     <Product>{{cookiecutter.project_name}}</Product>
-    <Description>{{cookiecutter.description}}</Description>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
     <Version>1.0.0.0</Version>
@@ -12,14 +12,15 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <LangVersion>latest</LangVersion>
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <DebugType>full</DebugType>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
 
@@ -36,15 +37,6 @@
       <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\ImGuiScene.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System">
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="System.Core">
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="System.Numerics">
-      <Private>false</Private>
-    </Reference>
   </ItemGroup>
   {% if cookiecutter.use_packager == "yes" -%}
   <ItemGroup>
@@ -53,5 +45,11 @@
   <ItemGroup>
     <PackageReference Include="DalamudPackager" Version="1.2.1" />
   </ItemGroup>
-  {% endif -%}
+  {% else -%}
+  <ItemGroup>
+    <None Include="{{cookiecutter.project_name}}.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  {% endif %}
 </Project>

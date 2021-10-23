@@ -4,7 +4,6 @@ import shutil
 
 project_name = "{{ cookiecutter.project_name }}"
 include_ui = "{{ cookiecutter.include_UI_project }}"
-project_style = "{{ cookiecutter.project_style }}"
 include_actions = "{{ cookiecutter.include_actions }}"
 include_goat = "{{ cookiecutter.include_goat }}"
 
@@ -16,9 +15,6 @@ def remove(filepath):
 
 if include_ui == "no":
     remove(os.path.join(os.getcwd(), "UIDev"))
-
-if project_style == "SDK":
-    remove(os.path.join(os.getcwd(), project_name, "Properties"))
 
 if include_actions == "no":
     remove(os.path.join(os.getcwd(), ".github"))

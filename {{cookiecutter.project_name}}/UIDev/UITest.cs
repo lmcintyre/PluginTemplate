@@ -14,21 +14,19 @@ namespace UIDev
 
         {% if cookiecutter.include_goat == "yes" -%}
         private TextureWrap goatImage;
-        {%- endif -%}
+        {% endif -%}
         private SimpleImGuiScene scene;
 
         public void Initialize(SimpleImGuiScene scene)
         {
-            {% if cookiecutter.include_comments == "yes" -%}
+            {%- if cookiecutter.include_comments == "yes" %}
             // scene is a little different from what you have access to in dalamud
             // but it can accomplish the same things, and is really only used for initial setup here
-
             // eg, to load an image resource for use with ImGui
-            {%- endif -%}
+            {%- endif %}
             {% if cookiecutter.include_goat == "yes" -%}
             this.goatImage = scene.LoadImage(@"goat.png");
-            {%- endif -%}
-
+            {% endif -%}
             scene.OnBuildUI += Draw;
 
             this.Visible = true;
@@ -36,7 +34,7 @@ namespace UIDev
             {% if cookiecutter.include_comments == "yes" -%}
             // saving this only so we can kill the test application by closing the window
             // (instead of just by hitting escape)
-            {%- endif -%}
+            {% endif -%}
             this.scene = scene;
         }
 
@@ -44,7 +42,7 @@ namespace UIDev
         {
             {% if cookiecutter.include_goat == "yes" -%}
             this.goatImage.Dispose();
-            {%- endif -%}
+            {%- endif %}
         }
 
         {% if cookiecutter.include_comments == "yes" -%}
@@ -52,7 +50,7 @@ namespace UIDev
         // mock dependencies and conceivably use exactly the same class in this testbed and the actual plugin
         // That is, however, a bit excessive in general - it could easily be done for this sample, but I
         // don't want to imply that is easy or the best way to go usually, so it's not done here either
-        {%- endif -%}
+        {%- endif %}
         private void Draw()
         {
             DrawMainWindow();
@@ -82,7 +80,7 @@ namespace UIDev
         {% if cookiecutter.include_comments == "yes" -%}
         // this is where you'd have to start mocking objects if you really want to match
         // but for simple UI creation purposes, just hardcoding values works
-        {%- endif -%}
+        {% endif -%}
         private bool fakeConfigBool = true;
 
         public void DrawMainWindow()
@@ -102,15 +100,15 @@ namespace UIDev
                 {
                     SettingsVisible = true;
                 }
+                {%- if cookiecutter.include_goat == "yes" %}
 
-                {% if cookiecutter.include_goat == "yes" -%}
                 ImGui.Spacing();
 
                 ImGui.Text("Have a goat:");
                 ImGui.Indent(55);
                 ImGui.Image(this.goatImage.ImGuiHandle, new Vector2(this.goatImage.Width, this.goatImage.Height));
                 ImGui.Unindent(55);
-                {%- endif -%}
+                {%- endif %}
             }
             ImGui.End();
         }
@@ -130,7 +128,7 @@ namespace UIDev
                 {
                     {% if cookiecutter.include_comments == "yes" -%}
                     // nothing to do in a fake ui!
-                    {%- endif -%}
+                    {%- endif %}
                 }
             }
             ImGui.End();

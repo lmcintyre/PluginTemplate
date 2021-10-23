@@ -28,9 +28,13 @@ The user-facing name of the plugin. This is the name that users will see in the 
 
 The author of the plugin. This is the name that users will see as the author in the **dll file properties** and the  **plugin installer**.
 
+### ```punchline```
+
+A one-sentence description of the plugin. This is what will be visible in the **plugin installer** before expanding the plugin's listing. If ommitted, the `description` will be presented in the **plugin installer** instead.
+
 ### ```description```
 
-A description of the plugin. This will appear in the **dll file properties** and the **plugin installer**.
+A description of the plugin. This will appear in the **plugin installer**. It is recommended to write something short, then you can go back and long-form it later.
 
 ### ```project_repo```
 
@@ -44,6 +48,16 @@ The main command for your plugin. This is not necessarily required, but almost e
 
 The help message for your plugin. This appears as a message when a user types **/xlhelp** in-game. Most plugin developers include their main command and a description, or a list of commands and what they do.
 
+### ```di_scheme```
+
+The method to use for dependency injection of Dalamud subsystems.
+
+`constructor` - Inject everything into the constructor. It is up to the plugin developer to remove subsystems from the constructor that are not used. This method is recommended if you know you will be utilizing few subsystems.
+
+`container` - Inject everything into a DalamudContainer class, allowing for static, global use throughout your plugin. This is the "cleanest" method, as the subsystem objects are not cluttering code. It is still best practice to remove any subsystem you are not using.
+
+`none` - Inject only `DalamudPluginInterface` and `CommandManager` into the constructor. This is the most basic method for a sample plugin to run.
+
 ### ```include_comments```
 
 Option to include relatively helpful comments in the project. This is recommended for your first plugin and getting familiar with the sample plugin.
@@ -54,21 +68,15 @@ Option to include a readme file in the generated project.
 
 ### ```include_UI_project```
 
-Option to include an ImGui UI testbed project with the generated project. Most experienced ImGui or plugin developers do not need this, and new devs also might not if they use [LivePluginLoader](https://github.com/caraxi/livepluginload), but it is a quick and easy way to get a feel for ImGui.
+Option to include an ImGui UI testbed project with the generated project. Most experienced ImGui or plugin developers do not need this, and new devs also might not if they use utilize Dalamud's automatic reloading of developer plugins, but it is a quick and easy way to get a feel for ImGui.
 
 ### ```include_goat```
 
 Option to include a goat image in the sample plugin's user interface code. This is an example of loading an image as a texture and displaying it in ImGui, so it is useful as example code if that is one of your goals.
 
-### ```project_style```
-
-Option to change the C# project style. The current sample plugin uses the non-SDK project style, which is arguably more difficult to maintain and is spread across the csproj and AssemblyInfo.cs files. The SDK style is modern, more compact, and supports DalamudPackager.
-
 ### ```use_packager```
 
-For easier deployment of plugins, [DalamudPackager](https://github.com/goatcorp/dalamudpackager) is an option. This option will add the DalamudPackager nuget package to your project, which will produce a deployment-ready `latest.zip` and `project_name.json` file on every build.
-
-This option will fail the generation if set to `yes` while  `project_style` is set to `nonSDK`.
+For easier deployment of plugins, [DalamudPackager](https://github.com/goatcorp/dalamudpackager) is an option. This option will add the DalamudPackager nuget package to your project, which will produce a deployment-ready `latest.zip` and `project_name.json` file on every Release-mode build.
 
 ### ```packager_targets```
 
@@ -78,6 +86,6 @@ This option will fail the generation if set to `yes` while `use_packager` is set
 
 ### ```include_actions```
 
-Option to include GitHub actions for building your plugin. This will include two actions, one for build on push, and one to create a release when a commit is tagged with a version number. For example, pushing a commit will create a build with the contents of the Release folder as artifacts. Pushing a tag "1.0.1.0" will build and create a Release on GitHub named `project_name 1.0.1.0`, attaching the `latest.zip` file produced by DalamudPackager.
+Option to include GitHub actions for building your plugin. This will include two actions, one for build on push, and one to create a release when a commit is tagged with a version number. For example, pushing a commit will create a build with the contents of the Release folder as artifacts. Pushing a tag "1.0.1.0" will build and create a Release on GitHub named `project_name 1.0.1.0`, attaching the `project_name.zip` file produced by DalamudPackager.
 
-This option will fail the generation if set to `yes` while `use_packager` is set to `no`, but only to avoid actions not working as expected immediately. Feel free to copy and modify the actions manually.
+This option will fail the generation if set to `yes` while `use_packager` is set to `no`, but only to avoid actions not immediately working as expected. Feel free to copy and modify the actions manually.
