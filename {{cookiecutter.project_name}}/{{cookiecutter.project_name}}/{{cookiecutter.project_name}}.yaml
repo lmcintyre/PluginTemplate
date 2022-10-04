@@ -1,6 +1,7 @@
 name: {{cookiecutter.public_name}}
 internal_name: {{cookiecutter.project_name}}
 author: {{cookiecutter.author}}
+punchline: {{cookiecutter.punchline}}
 description: |-
   {{cookiecutter.description}}
 repo_url: {{cookiecutter.project_repo}}

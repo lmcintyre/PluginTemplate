@@ -8,7 +8,7 @@ The simplest usage is to install Python for your platform, then install cookiecu
 
 Once installed, you can copy the link to any release zip on the right side of this GitHub repository, and use cookiecutter like so:
 
-```cookiecutter https://github.com/lmcintyre/PluginTemplate/releases/download/1.0.0/PluginTemplate.zip```
+```cookiecutter https://github.com/lmcintyre/PluginTemplate/releases/download/1.1.0/PluginTemplate.zip```
 
 Cookiecutter will download the template zip, extract it, and perform generation all in one go. Future generations will ask you if you want to redownload or use the cached template zip.
 

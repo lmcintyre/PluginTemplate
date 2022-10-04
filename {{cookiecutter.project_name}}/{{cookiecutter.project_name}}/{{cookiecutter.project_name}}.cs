@@ -1,27 +1,28 @@
 ﻿using Dalamud.Game.Command;
 using Dalamud.Plugin;
 using Dalamud.IoC;
-using System;
 using System.IO;
 using System.Reflection;
 {%- if cookiecutter.di_scheme == "constructor" %}
 using Dalamud.Data;
 using Dalamud.Game;
 using Dalamud.Game.ClientState;
+using Dalamud.Game.ClientState.Aetherytes;
 using Dalamud.Game.ClientState.Buddy;
 using Dalamud.Game.ClientState.Conditions;
 using Dalamud.Game.ClientState.Fates;
+using Dalamud.Game.ClientState.GamePad;
 using Dalamud.Game.ClientState.JobGauge;
 using Dalamud.Game.ClientState.Keys;
 using Dalamud.Game.ClientState.Objects;
 using Dalamud.Game.ClientState.Party;
 using Dalamud.Game.Gui;
+using Dalamud.Game.Gui.Dtr;
 using Dalamud.Game.Gui.FlyText;
 using Dalamud.Game.Gui.PartyFinder;
 using Dalamud.Game.Gui.Toast;
 using Dalamud.Game.Libc;
 using Dalamud.Game.Network;
-using Dalamud.Game.Text.SeStringHandling;
 {%- endif %}
 
 namespace {{cookiecutter.project_name}}
@@ -33,28 +34,31 @@ namespace {{cookiecutter.project_name}}
         private const string CommandName = "/{{cookiecutter.main_command}}";
 
         {% if cookiecutter.di_scheme == "constructor" -%}
-        public static DalamudPluginInterface PluginInterface { get; private set; }
-        public static CommandManager CommandManager { get; private set; }
-        public static SigScanner SigScanner { get; private set; }
-        public static DataManager DataManager { get; private set; }
-        public static ClientState ClientState { get; private set; }
-        public static ChatGui ChatGui { get; private set; }
-        public static ChatHandlers ChatHandlers { get; private set; }
-        public static Framework Framework { get; private set; }
-        public static GameNetwork GameNetwork { get; private set; }
-        public static Condition Condition { get; private set; }
-        public static KeyState KeyState { get; private set; }
-        public static GameGui GameGui { get; private set; }
-        public static FlyTextGui FlyTextGui { get; private set; }
-        public static ToastGui ToastGui { get; private set; }
-        public static JobGauges JobGauges { get; private set; }
-        public static PartyFinderGui PartyFinderGui { get; private set; }
-        public static BuddyList BuddyList { get; private set; }
-        public static PartyList PartyList { get; private set; }
-        public static TargetManager TargetManager { get; private set; }
-        public static ObjectTable ObjectTable { get; private set; }
-        public static FateTable FateTable { get; private set; }
-        public static LibcFunction LibcFunction { get; private set; }
+        public static AetheryteList AetheryteList { get; private set; } = null;
+        public static BuddyList BuddyList { get; private set; } = null; 
+        public static ChatGui ChatGui { get; private set; } = null;
+        public static ChatHandlers ChatHandlers { get; private set; } = null;
+        public static ClientState ClientState { get; private set; } = null;
+        public static CommandManager CommandManager { get; private set; } = null;
+        public static Condition Condition { get; private set; } = null;
+        public static DalamudPluginInterface PluginInterface { get; private set; } = null;
+        public static DataManager DataManager { get; private set; } = null;
+        public static DtrBar DtrBar { get; private set; } = null;
+        public static FateTable FateTable { get; private set; } = null;
+        public static FlyTextGui FlyTextGui { get; private set; } = null;
+        public static Framework Framework { get; private set; } = null;
+        public static GameGui GameGui { get; private set; } = null;
+        public static GameNetwork GameNetwork { get; private set; } = null;
+        public static GamepadState GamepadState { get; private set; } = null;
+        public static JobGauges JobGauges { get; private set; } = null;
+        public static KeyState KeyState { get; private set; } = null;
+        public static LibcFunction LibcFunction { get; private set; } = null;
+        public static ObjectTable ObjectTable { get; private set; } = null;
+        public static PartyFinderGui PartyFinderGui { get; private set; } = null;
+        public static PartyList PartyList { get; private set; } = null;
+        public static SigScanner SigScanner { get; private set; } = null;
+        public static TargetManager TargetManager { get; private set; } = null;
+        public static ToastGui ToastGui { get; private set; } = null;
 
         {% elif cookiecutter.di_scheme == "none" -%}
         public static DalamudPluginInterface PluginInterface { get; private set; }
@@ -68,56 +72,62 @@ namespace {{cookiecutter.project_name}}
         public {{cookiecutter.project_name}}({% if cookiecutter.di_scheme == "container" -%}
             [RequiredVersion("1.0")] DalamudPluginInterface pluginInterface
             {%- elif cookiecutter.di_scheme == "constructor" %}
-            [RequiredVersion("1.0")] DalamudPluginInterface pluginInterface,
-            [RequiredVersion("1.0")] CommandManager commandManager,
-            [RequiredVersion("1.0")] SigScanner sigScanner,
-            [RequiredVersion("1.0")] DataManager dataManager,
-            [RequiredVersion("1.0")] ClientState clientState,
+            [RequiredVersion("1.0")] AetheryteList aetheryteList,
+            [RequiredVersion("1.0")] BuddyList buddyList,
             [RequiredVersion("1.0")] ChatGui chatGui,
             [RequiredVersion("1.0")] ChatHandlers chatHandlers,
-            [RequiredVersion("1.0")] Framework framework,
-            [RequiredVersion("1.0")] GameNetwork gameNetwork,
+            [RequiredVersion("1.0")] ClientState clientState,
+            [RequiredVersion("1.0")] CommandManager commandManager,
             [RequiredVersion("1.0")] Condition condition,
-            [RequiredVersion("1.0")] KeyState keyState,
-            [RequiredVersion("1.0")] GameGui gameGui,
-            [RequiredVersion("1.0")] FlyTextGui flyTextGui,
-            [RequiredVersion("1.0")] ToastGui toastGui,
-            [RequiredVersion("1.0")] JobGauges jobGauges,
-            [RequiredVersion("1.0")] PartyFinderGui partyFinderGui,
-            [RequiredVersion("1.0")] BuddyList buddyList,
-            [RequiredVersion("1.0")] PartyList partyList,
-            [RequiredVersion("1.0")] TargetManager targetManager,
-            [RequiredVersion("1.0")] ObjectTable objectTable,
+            [RequiredVersion("1.0")] DalamudPluginInterface pluginInterface,
+            [RequiredVersion("1.0")] DataManager dataManager,
+            [RequiredVersion("1.0")] DtrBar dtrBar,
             [RequiredVersion("1.0")] FateTable fateTable,
-            [RequiredVersion("1.0")] LibcFunction libcFunction
+            [RequiredVersion("1.0")] FlyTextGui flyTextGui,
+            [RequiredVersion("1.0")] Framework framework,
+            [RequiredVersion("1.0")] GameGui gameGui,
+            [RequiredVersion("1.0")] GameNetwork gameNetwork,
+            [RequiredVersion("1.0")] GamepadState gamepadState,
+            [RequiredVersion("1.0")] JobGauges jobGauges,
+            [RequiredVersion("1.0")] KeyState keyState,
+            [RequiredVersion("1.0")] LibcFunction libcFunction,
+            [RequiredVersion("1.0")] ObjectTable objectTable,
+            [RequiredVersion("1.0")] PartyFinderGui partyFinderGui,
+            [RequiredVersion("1.0")] PartyList partyList,
+            [RequiredVersion("1.0")] SigScanner sigScanner,
+            [RequiredVersion("1.0")] TargetManager targetManager,
+            [RequiredVersion("1.0")] ToastGui toastGui
             {%- else %}
             [RequiredVersion("1.0")] DalamudPluginInterface pluginInterface,
             [RequiredVersion("1.0")] CommandManager commandManager
             {%- endif %})
         {
             {%- if cookiecutter.di_scheme == "constructor" %}
-            PluginInterface = pluginInterface;
-            CommandManager = commandManager;
-            SigScanner = sigScanner;
-            DataManager = dataManager;
-            ClientState = clientState;
+            AetheryteList = aetheryteList;
+            BuddyList = buddyList;
             ChatGui = chatGui;
             ChatHandlers = chatHandlers;
-            Framework = framework;
-            GameNetwork = gameNetwork;
+            ClientState = clientState;
+            CommandManager = commandManager;
             Condition = condition;
-            KeyState = keyState;
-            GameGui = gameGui;
-            FlyTextGui = flyTextGui;
-            ToastGui = toastGui;
-            JobGauges = jobGauges;
-            PartyFinderGui = partyFinderGui;
-            BuddyList = buddyList;
-            PartyList = partyList;
-            TargetManager = targetManager;
-            ObjectTable = objectTable;
+            PluginInterface = pluginInterface;
+            DataManager = dataManager;
+            DtrBar = dtrBar;
             FateTable = fateTable;
+            FlyTextGui = flyTextGui;
+            Framework = framework;
+            GameGui = gameGui;
+            GameNetwork = gameNetwork;
+            GamepadState = gamepadState;
+            JobGauges = jobGauges;
+            KeyState = keyState;
             LibcFunction = libcFunction;
+            ObjectTable = objectTable;
+            PartyFinderGui = partyFinderGui;
+            PartyList = partyList;
+            SigScanner = sigScanner;
+            TargetManager = targetManager;
+            ToastGui = toastGui;
             {%- elif cookiecutter.di_scheme == "container" %}
             DalamudContainer.Initialize(pluginInterface);
             {%- else %}
